@@ -40,6 +40,10 @@ namespace CustomerApp.Controllers
         /// <param name="customerid">The Id of the customer.</param>  
         public HttpResponseMessage GetCustomer(int customerid)
         {
+            if (customerid==null)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest);
+            }           
             var customer = _dataCustomer.GetCustomerById(customerid);          
             if (customer == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);            
@@ -53,6 +57,11 @@ namespace CustomerApp.Controllers
         /// <param name="customerid">The Id of the customer.</param>       
         public HttpResponseMessage GetOrdersByCostumer(int customerid)
         {
+            if(customerid==null)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+                        
             var order = _dataCustomer.GetOrdersByCostumer(customerid);
             if (order == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -67,6 +76,11 @@ namespace CustomerApp.Controllers
         /// <param name="orderid">The Id of the order</param>     
         public HttpResponseMessage GetOrdersDetailByCostumer(int customerid,int orderid)
         {
+            if(customerid==null && orderid==null)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest);
+            }       
+            
             var order = _dataCustomer.GetOrdersDetailByCostumer(customerid,orderid);
             if (order == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -80,6 +94,7 @@ namespace CustomerApp.Controllers
         /// <returns></returns>       
         public HttpRequestMessage DeleteCustomer(int customerid)
         {
+                                    
             throw new HttpResponseException(HttpStatusCode.NotImplemented);
         }
 
